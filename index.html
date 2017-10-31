@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/angular-ui/bower-ui-grid/master/ui-grid.min.css" />
+    <link rel="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="script.js"></script>
+  </head>
+
+  <body ng-app="myApp" ng-controller="ctrl">   
+
+  <!------------------ FORM =========================== -->
+  
+  
+  <div id = "wrapper" class="container">
+  
+  <div class="container header">
+
+    <h1>Add User:</h1>
+  </div>
+  
+  <!------------------- User Name ====================== --> 
+  
+  <form name="userForm" ng-submit="AddForm()" novalidate>
+  
+    <div class="form-group col-sm-3">
+      <div class="form-group" ng-class="{ 'has-error' : userForm.uname.$invalid && !userForm.uname.$pristine }">
+      <label>User Name</label>
+      <input type="text" name="uname" class="form-control" id="username" ng-minlength="2" ng-maxlength="20" ng-model="uname" ng-pattern="/^[a-zA-Z0-9]+$/" required>
+      <p ng-show="userForm.uname.$error.minlength" class="help-block">Username should not be less than two character.</p>
+      <p ng-show="userForm.uname.$error.maxlength" class="help-block">Username should not be greater than twenty character.</p>
+      <p ng-show="userForm.uname.$error.pattern" class="help-block">Not allowed any special character.</p>
+     </div>
+    </div>
+   <!------------------- Age Group ====================== -->
+  
+    <div class="form-group col-sm-2">
+        
+      <label>Age</label>
+      <input type="number" class="form-control" min = "1" max="100" ng-model="age"> 
+    </div>
+   
+   
+   <!------------------- Email ====================== -->
+    
+    <div class="form-group col-sm-3">
+        <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+      <label>Email</label>
+      <input type="email" name="email" class="form-control" id="email" ng-model="email">
+      <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p>
+        </div>
+        
+    </div>
+
+   
+   <!------------------ Button ====================== -->
+<div id ="specialBtn" class="col-sm-4" >
+  <button type="submit" class="btn1 btn btn-info" ng-click="add()" ng-disabled="userForm.$invalid">Add</button>
+  <button type="button" class="btn1 btn btn-info" ng-click="refresh()">Refresh</button>
+</div>
+</form>
+
+ </div>
+ 
+  
+<!---<table id="example" class="display" cellspacing="0" width="100%">
+        <thead>
+            <tr>
+                <th>User Name</th>
+                <th>Age</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+</table>-->
+<table id="t1" class=" container table table-hover table-bordered">
+  
+  <thead class="thead-inverse">
+    <tr>
+      <th>User Name</th>
+      <th>Age</th>
+      <th>Email</th>
+    </tr>
+    </thead>
+    <tr ng-repeat = "task in tasks">
+      <td>{{task.uname}}</td>
+      <td>{{task.age}}</td>
+      <td>{{task.email}}</td>
+    </tr> 
+</table>
+
+   </body>
+   </html>
